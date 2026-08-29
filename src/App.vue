@@ -1,12 +1,14 @@
 <template>
     <Header title="Vue JS" />
+    <Articles />
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Articles from './components/Articles.vue';
 export default {
     components:{
-        Header
+        Header, Articles
     }
 
 };
@@ -17,5 +19,7 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
-
+body{
+    background-color: #fcfcfc;
+}
 </style>
