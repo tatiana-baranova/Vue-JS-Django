@@ -4,6 +4,9 @@
                 <input v-model="userTitleInput" type="text" placeholder="Введіть текст" id="title"/>
                 <label for="title">Основний текст: <span>{{ maxCharacters }} / 20</span></label>
                 <textarea v-model="userTextInput" type="text" placeholder="Введіть текст"></textarea>
+                <p v-if="errorMessage" class="error-msg">
+                    ⚠️ {{ errorMessage }}
+                </p>
                 <button>Додати</button>
             </form>
 </template>
@@ -15,15 +18,19 @@ export default{
         return{
             userTitleInput:'',
             userTextInput: '',
+            errorMessage: ''
         }
     },
     methods: {
         createPost(){
-            if(this.userTitleInput !== "" && this.userTextInput !==""){
-                this.$emit('add-post', this.userTitleInput, this.userTextInput)
-                this.userTitleInput = "";
-                this.userTextInput = "";
-            }
+            this.errorMessage = '';
+            if (!this.userTitleInput.trim() || !this.userTextInput.trim()) {
+        this.errorMessage = 'Заповніть усі поля! Поля не можуть містити лише пробіли.';
+        return;
+        }
+        this.$emit('add-post', this.userTitleInput, this.userTextInput);
+        this.userTitleInput = "";
+        this.userTextInput = "";
         },
     },
     computed: {
